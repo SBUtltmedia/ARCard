@@ -11,8 +11,8 @@
     <a-scene mindar-image="imageTargetSrc: ./combined.mind;" vr-mode-ui="enabled: false"
         device-orientation-permission-ui="enabled: false">
         <a-assets>
-            <video id="einstein-vid-elem" loop="true" playsinline src="./einstein_1.mp4"></video>
-            <video id="godel-vid-elem" loop="true" playsinline src="./scaled_godel_0.mp4"></video>
+            <video webkit-playsinline id="einstein-vid-elem" loop="true" playsinline src="./einstein_1.mp4"></video>
+            <video webkit-playsinline id="godel-vid-elem" loop="true" playsinline src="./scaled_godel_0.mp4"></video>
         </a-assets>
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
         <a-entity mindar-image-target="targetIndex: 0" einstein-video-component>
