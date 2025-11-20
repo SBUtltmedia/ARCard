@@ -7,32 +7,52 @@
 </head>
 
 <body>
-    <a-scene mindar-image="imageTargetSrc: ./einstein.mind;" vr-mode-ui="enabled: false"
+    <a-scene mindar-image="imageTargetSrc: ./combined.mind;" vr-mode-ui="enabled: false"
         device-orientation-permission-ui="enabled: false">
         <a-assets>
-            <video id="vid-elem" loop="true" playsinline src="./einstein_1.mp4"></video>
+            <video id="einstein-vid-elem" loop="true" playsinline src="./einstein_1.mp4"></video>
+            <video id="godel-vid-elem" loop="true" playsinline src="./scaled_godel_0.mp4"></video>
         </a-assets>
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-        <a-entity mindar-image-target="targetIndex: 0" videoplayonscan>
-            <a-video src="#vid-elem" width="1" height="1" position="0 0 0"></a-video>
+        <a-entity mindar-image-target="targetIndex: 0" einstein-video-component>
+            <a-video src="#einstein-vid-elem" width="1" height="1" position="0 0 0"></a-video>
         </a-entity>
+        <a-entity mindar-image-target="targetIndex: 1" godel-video-component>
+            <a-video src="#godel-vid-elem" width="1" height="1" position="0 0 0"></a-video>
+        </a-entity>        
     </a-scene>
 </body>
 <script>
-    AFRAME.registerComponent('videoplayonscan', {
-        init: function () {
-            const videoAsset = document.querySelector('#vid-elem');
-            const targetEntity = this.el;
+    function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
-            function getRandomIntInclusive(min, max) {
-                min = Math.ceil(min);
-                max = Math.floor(max);
-                return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
+    AFRAME.registerComponent('einstein-video-component', {
+        init: function () {
+            const videoAsset = document.querySelector('#einstein-vid-elem');
+            const targetEntity = this.el;
 
             targetEntity.addEventListener('targetFound', () => {
                 let video_src = `./einstein_${getRandomIntInclusive(1, 3)}.mp4`
-                document.getElementById("vid-elem").setAttribute("src", video_src);
+                document.getElementById("einstein-vid-elem").setAttribute("src", video_src);
+                videoAsset.play();
+            });
+            targetEntity.addEventListener('targetLost', () => {
+                videoAsset.pause();
+            });
+        }
+    });
+
+    AFRAME.registerComponent('godel-video-component', {
+        init: function () {
+            const videoAsset = document.querySelector('#godel-vid-elem');
+            const targetEntity = this.el;
+
+            targetEntity.addEventListener('targetFound', () => {
+                let video_src = `./scaled_godel_${getRandomIntInclusive(0, 2)}.mp4`
+                document.getElementById("godel-vid-elem").setAttribute("src", video_src);
                 videoAsset.play();
             });
             targetEntity.addEventListener('targetLost', () => {
