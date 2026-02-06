@@ -47,7 +47,7 @@
             playsinline
             webkit-playsinline
             crossorigin="anonymous"
-            src="./Tshirt_Godel_flip.mp4"
+            src="./godel_flip_0.mp4"
           ></video>
         </a-assets>
 
@@ -119,7 +119,7 @@
         const targetEntity = this.el;
 
         targetEntity.addEventListener("targetFound", () => {
-          let video_src = `./scaled_godel_${getRandomIntInclusive(0, 2)}.mp4`;
+          let video_src = `./godel_flip_${getRandomIntInclusive(0, 2)}.mp4`;
           document
             .getElementById("godel-vid-elem")
             .setAttribute("src", video_src);
